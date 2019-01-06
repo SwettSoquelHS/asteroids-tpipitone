@@ -81,6 +81,25 @@ Recommended steps to completing this section
 * Modify your code so that you have an array of Asteroids.
 
 
+Asteroids Collision, Part 3: Asteroid to Asteroid collision
+================================================= 
+The idea behind collision detection is to think about whether or not two Mover objects occupy the same space. If you were to look at just the x & y values of two Movers you might find that one has (23, 50.0) and the second has (24, 49.0). Simply comparing their coordinates is not sufficient (these two obviously have different positions). You must also think about their "radius of influence". If the Movers have each have a radius of 5, then they will intersect. So how can we visualize it? The easiest way is to think of the drawing a right triangle between the two coordinate values and ask if that hypotentuse is smaller than their two radius added.
+```
+  boolean collidingWith(Movable m) {     
+    //How far away are OUR centers
+    float d = dist(x, y, m.getX(), m.getY());    
+    
+    //If both of our radi added are greater than or equal to d, then we have collided
+    if ((radius + m.getRadius()) >= d) {
+     return true;  
+    }
+    return false;
+ }
+```
+
+* There are few techniques one can explore with collision detection. Here are a couple of links the go into greater detail in case you are interested: (Or google search "processing collision detection")
+  * [Several advanced](https://happycoding.io/tutorials/processing/collision-detection#circle-circle-collision)
+  * [Processing Demo](https://processing.org/examples/circlecollision.html)
 
 
 *This assignment was addapted from https://github.com/APCSLowell/AsteroidsGame
