@@ -70,20 +70,16 @@ Recommended steps to completing this section
 -----------------------------------
 *  Make the `Asteroid` class extend `Mover` in your Asteroid.pde file. You will need to write a constructor and the code to "finish" the `abstract` methods from Mover class.
 * Polygon Shape: Think about using two arrays of floats, one for x coordinates, xCoords, and one for y coordinates, yCoords
-  * Then xCoords[0] yCoords[0] ... xCoords[i] yCoords[i] can coorispond to one coordinate pair.
-* Spin: Use a `float` member variable in the `Asteroid` class to track how much it has spun (in degrees). Also make sure to declare it appropriately (should it be `public` or `private`?). 
+  * So xCoords[0] yCoords[0] is your first coordinate, OR xCoords[i] yCoords[i] and your i-th coordinate pair.
+  * Using this pattern you can use beginShape(), vertex(), endShape() to draw your asteroid.
+* Now add just a single asteroid in the main AsteroidsGame.pde. 
+  * Initialize it in setup
+  * Call `update()`, then `show()`. Make sure you can see it and are happy with its shape before going to the next step, spin.
+* Spin: Use a `float` member variable in the `Asteroid` class to track how much it has spun (in degrees). Also make sure to declare it appropriately (should it be `public` or `private`?).
+  * Override `update()` and increment your spin variable a little bit, spin += 0.3 (or however fast you want it to spin)
+  * right before you call beginShap, you can rotate(radians(spin))
+* Modify your code so that you have an array of Asteroids.
 
-
-4. Now add just a single asteroid to your applet. Start by just calling the Asteroid's `show()` function. Make sure you can see it and are happy with its shape before going to the next step.
-5. Now add the code that moves and rotates the Asteroid
-6. Modify your code so that you have an array of Asteroids.
-7. Submit the URL of your working program to Google Classroom (the same URL you submitted for Part 1)
-
-Extensions
-----------
-
-If you have extra time, you might try to figure out how to check to see if the ship has collided with an asteroid.
- 
 
 
 
