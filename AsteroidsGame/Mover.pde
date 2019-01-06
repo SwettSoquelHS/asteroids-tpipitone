@@ -1,86 +1,107 @@
-abstract class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class 
-{   
-  protected int corners;  //the number of corners, a triangular floater has 3   
-  protected int[] xCorners;   
-  protected int[] yCorners;   
-  protected int myColor;   
-  protected double myCenterX, myCenterY; //holds center coordinates   
-  protected double myDirectionX, myDirectionY; //holds x and y coordinates of the vector for direction of travel   
-  protected double myPointDirection; //holds current direction the ship is pointing in degrees    
-  abstract public void setX(int x);  
-  abstract public int getX();   
-  abstract public void setY(int y);   
-  abstract public int getY();   
-  abstract public void setDirectionX(double x);   
-  abstract public double getDirectionX();   
-  abstract public void setDirectionY(double y);   
-  abstract public double getDirectionY();   
-  abstract public void setPointDirection(int degrees);   
-  abstract public double getPointDirection(); 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ All objects in this world that move must implemnt the Movalbe interface.
+ */
+interface Movable {
+  /*
+    Return the x location of the Movable
+   */
+  float getX();
 
-  //Accelerates the floater in the direction it is pointing (myPointDirection)   
-  public void accelerate (double dAmount) {          
-    //convert the current direction the floater is pointing to radians    
-    double dRadians =myPointDirection*(Math.PI/180);     
-    //change coordinates of direction of travel    
-    myDirectionX += ((dAmount) * Math.cos(dRadians));    
-    myDirectionY += ((dAmount) * Math.sin(dRadians));       
-  }   
+  /*
+    Return the y location of the Movable
+   */
+  float getY();
+
+  /*
+    Return the direction of the Movable in degrees.
+   */
+  float getDirection();
+
+  /*
+   Return the speed of the Movable.
+   The speed you use is a relative value and will
+   feel different for different frame rates. For example,
+   if frameRate is set to 48, then a speed of 1 would move 48 pixels 
+   per second.
+   */
+  float getSpeed();
+
+  /*
+   Return the radius of influence. If you could draw a circle
+   around your object, then what would this radius be.
+   */
+  float getRadius();
+
+  /* 
+   Sets the direction of the Movable
+   */
+  void setDirection(float newDirectionInDegrees);
+
+  /* 
+   Sets the speed of the Movable
+   */
+  void setSpeed(float newSpeed);
+
+  /*
+   Update the internals of the instance
+   */
+  void update(); 
+
+  /*
+    Display the isntance
+   */
+  void show();
+
+  /*
+   Return true if the instance of Movable is "colliding with" 
+   the movable referred to by object.  *Note* An object should not
+   be able to collide with iteself.
+   */
+  boolean collidingWith(Movable object);
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ Abstrac base class Mover 
+ */
+abstract class Mover {// implements Movable {
+
+  protected float x, y;
+  protected float speed;
+  protected float direction;
+  protected int myColor;
+  protected float radius;  
+
+  Mover(float x, float y) {
+    this(x, y, 0, 0);
+  }
+
+  Mover(float x, float y, float speed, float direction) {
+    this.x = x;
+    this.y = y;    
+    this.speed = speed;
+    this.direction = direction;
+    myColor = 225;
+    radius = 0.0;
+  }
+
+  /*
+    Most of your movalbe objects should follow this pattern.
+   */
+  void update() {
+    x = x + speed*(float)Math.cos(radians(direction));
+    y = y + speed*(float)Math.sin(radians(direction));
+
+    //todo: You need to decide what to do when X is less than 0 or greater than width
+    //todo: You need to decide what to do when Y is less than 0 or greater than height
+  }
+
+  /*
+    Save this for your subclasses to override.
+  */
+  abstract void show();
+
+  //TODO: Part I: implement the methods of Moveable
   
-  public void turn (int nDegreesOfRotation) {     
-    //rotates the floater by a given number of degrees    
-    myPointDirection+=nDegreesOfRotation;   
-  }   
-  
-  public void move ()   //move the floater in the current direction of travel
-  {      
-    //change the x and y coordinates by myDirectionX and myDirectionY       
-    myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;     
-
-    //wrap around screen    
-    if(myCenterX >width)
-    {     
-      myCenterX = 0;    
-    }    
-    else if (myCenterX<0)
-    {     
-      myCenterX = width;    
-    }    
-    if(myCenterY >height)
-    {    
-      myCenterY = 0;    
-    } 
-    
-    else if (myCenterY < 0)
-    {     
-      myCenterY = height;    
-    }   
-  }   
-  public void show ()  //Draws the floater at the current position  
-  {             
-    fill(myColor);   
-    stroke(myColor);    
-    
-    //translate the (x,y) center of the ship to the correct position
-    translate((float)myCenterX, (float)myCenterY);
-
-    //convert degrees to radians for rotate()     
-    float dRadians = (float)(myPointDirection*(Math.PI/180));
-    
-    //rotate so that the polygon will be drawn in the correct direction
-    rotate(dRadians);
-    
-    //draw the polygon
-    beginShape();
-    for (int nI = 0; nI < corners; nI++)
-    {
-      vertex(xCorners[nI], yCorners[nI]);
-    }
-    endShape(CLOSE);
-
-    //"unrotate" and "untranslate" in reverse order
-    rotate(-1*dRadians);
-    translate(-1*(float)myCenterX, -1*(float)myCenterY);
-  }   
-} 
+}
