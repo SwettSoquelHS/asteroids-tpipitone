@@ -58,7 +58,7 @@ Samples of Student Work
 [Mi-Kaela](https://mikamarciales.github.io/AsteroidsGame/)   
 
 
-Asteroids, Part 2: The Asteroid Field
+Part 2: The Asteroid Field
 =====================================
 Now that we have a functioning space ship, we'll add some asteroids to our game. We'll write an asteroid class that `extends Mover`. Your task is to create the Asteroid class. It should extend Mover. The asteroids should should have an iregular polygon shape or 5-7 sides. You do not need to randomize the shape but might find this useful later. The asteroid should be able to draw itself in 3 different sizes (small, medium, large). The asteroid should spin as it moves about in space.
 
@@ -81,11 +81,18 @@ Recommended steps to completing this section
 * Modify your code so that you have an array of Asteroids.
 
 
-Asteroids Collision, Part 3: Asteroid to Asteroid collision
-================================================= 
+Part 3: Collision Detection
+===========================
+The goal of this part is to make your asteroids bounce off of each other. You will need to detect when one asteroid is touching another and then update the direction it is traveling (and if you want it to look more realistic probably its speed and spin direction).
+
 The idea behind collision detection is to think about whether or not two Mover objects occupy the same space. If you were to look at just the x & y values of two Movers you might find that one has (23, 50.0) and the second has (24, 49.0). Simply comparing their coordinates is not sufficient (these two obviously have different positions). You must also think about their "radius of influence". If the Movers have each have a radius of 5, then they will intersect. So how can we visualize it? The easiest way is to think of the drawing a right triangle between the two coordinate values and ask if that hypotentuse is smaller than their two radius added.
 ```
-  boolean collidingWith(Movable m) {     
+  boolean collidingWith(Movable m) {
+    //Can't collide with yourself
+    if (this == m) {
+      return false;
+    }
+    
     //How far away are OUR centers
     float d = dist(x, y, m.getX(), m.getY());    
     
@@ -97,9 +104,46 @@ The idea behind collision detection is to think about whether or not two Mover o
  }
 ```
 
+Recommended steps to implement collision detection
+--------------------------------------------------
+* Update the Mover class implementation of collidingWith to use the code above.
+* In the main  AsteroidsGame pde file you will need to update the draw loop to check whether or not an asteroid is colliding with another asteroid.
+  * Best to do this inside of function and call that function inside of draw.
+* When you are checking if one asteroid is colliding with another asteroid you need to think about using a nested loop, that is, for each asteroid you have ask every other asteroid if it is colliding with the current asteroid.
+  * To simplify things, you should just break the loop once you detect a collision and only alter the course for the "outer" asteroid
+  * Also, there is a nice way to model this with Physics but it is kind of complicated. I'd just recommend altering the angle and speed some.
+ * There is a problem that can occur when to objects collide and appear to "stick" together. This comes from asking to frequently if something is colliding with itself. When the time comes we will discuss possible solutions to solve this problem.
+* Finally, you should update the AsteroidGame draw() method to also check if the Spaceship has collided with any of the Asteroids.
+
+
+Extra Reading for Collision Detection
+-------------------------------------
 * There are few techniques one can explore with collision detection. Here are a couple of links the go into greater detail in case you are interested: (Or google search "processing collision detection")
   * [Several advanced](https://happycoding.io/tutorials/processing/collision-detection#circle-circle-collision)
   * [Processing Demo](https://processing.org/examples/circlecollision.html)
 
+
+Part 4: Bullets and ArrayList
+==============================
+
+Adding an `ArrayList`
+--------------------
+An array probably isn't the best way to keep track of a bunch of bullets. Arrays have a fixed size. You can't easily add or remove bullets from an array. A better choice might be an `ArrayList`. The `ArrayList` class has a number of useful member methods:
+- `void add(Object element)` // add an object to the end
+- `void add(int index, Object element)`  // add an object at index, moves the thing that was there down by one 
+- `Object get(int index)` //get the object at index
+- `Object remove(int index)` // remove the object at index
+- `Object set(int index, Object x)` //replace the object at index with new object and return the one that was there
+- `int size()`
+
+Steps to completing this assignment
+-----------------------------------
+
+1. Modify your asteroids game to use an `ArrayList` instead of an array of asteroids. You may find the [ArrayList worksheet](https://drive.google.com/file/d/0Bz2ZkT6qWPYTQjFTMjhPaGNXb1E/view?usp=sharing) and the [ArrayList slide presentation](https://docs.google.com/presentation/d/1yDXGypcooCoeUa7GD99bYooRU1vBk63lC0G2JEOdTaY/edit?usp=sharing) helpful.
+2. Now we'll modify the program so that when our space ship strikes an asteroid, the asteroid is removed from the `ArrayList`. Everytime an asteroid moves find the distance between that asteroid and the ship. Use processing's [`dist()`](https://processing.org/reference/dist_.html) function to find the distance between that asteroid and the ship. If the distance is less than 20 (or whatever value is appropriate for your game) remove the asteroid from the ArrayList. Otherwise, move and rotate the asteroid normally
+3. Submit the same URL for your AsteroidsGame that you submitted for the two previous assignments to Google Classroom.
+
+
+ 
 
 *This assignment was addapted from https://github.com/APCSLowell/AsteroidsGame
