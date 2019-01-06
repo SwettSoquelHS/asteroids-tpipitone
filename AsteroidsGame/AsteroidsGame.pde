@@ -14,7 +14,7 @@ boolean ROTATE_RIGHT; //User is pressing ->
 boolean MOVE_FORWARD; //User is pressing ^ arrow
 boolean SPACE_BAR;    //User is pressing space bar
 
-
+  
 /* * * * * * * * * * * * * * * * * * * * * * *
   Initialize all of your variables and game state here
  */
