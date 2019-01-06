@@ -125,10 +125,7 @@ Extra Reading for Collision Detection
 
 Part 4: Bullets and ArrayList
 ==============================
-
-Adding an `ArrayList`
---------------------
-An array probably isn't the best way to keep track of a bunch of bullets. Arrays have a fixed size. You can't easily add or remove bullets from an array. A better choice might be an `ArrayList`. The `ArrayList` class has a number of useful member methods:
+In this part you will update your program to create bullets fired from the ship. To keep track of the bullets fired you will need to store them. An array probably isn't the best way to keep track of a bunch of bullets. Arrays have a fixed size. You can't easily add or remove bullets from an array. A better choice might be an `ArrayList`. The `ArrayList` class has a number of useful member methods:
 - `void add(Object element)` // add an object to the end
 - `void add(int index, Object element)`  // add an object at index, moves the thing that was there down by one 
 - `Object get(int index)` //get the object at index
@@ -136,14 +133,18 @@ An array probably isn't the best way to keep track of a bunch of bullets. Arrays
 - `Object set(int index, Object x)` //replace the object at index with new object and return the one that was there
 - `int size()`
 
-Steps to completing this assignment
------------------------------------
-
-1. Modify your asteroids game to use an `ArrayList` instead of an array of asteroids. You may find the [ArrayList worksheet](https://drive.google.com/file/d/0Bz2ZkT6qWPYTQjFTMjhPaGNXb1E/view?usp=sharing) and the [ArrayList slide presentation](https://docs.google.com/presentation/d/1yDXGypcooCoeUa7GD99bYooRU1vBk63lC0G2JEOdTaY/edit?usp=sharing) helpful.
-2. Now we'll modify the program so that when our space ship strikes an asteroid, the asteroid is removed from the `ArrayList`. Everytime an asteroid moves find the distance between that asteroid and the ship. Use processing's [`dist()`](https://processing.org/reference/dist_.html) function to find the distance between that asteroid and the ship. If the distance is less than 20 (or whatever value is appropriate for your game) remove the asteroid from the ArrayList. Otherwise, move and rotate the asteroid normally
-3. Submit the same URL for your AsteroidsGame that you submitted for the two previous assignments to Google Classroom.
+Using an `ArrayList` allows you to not have to care (as much) about the size of the array and lets you add as many things as you want to the array. You still have to be careful not to index out of the list though.
 
 
- 
+Steps to completing this part
+-----------------------------
+First you will want to make the Bullet class and have it extend Mover. Next you will want to update the Spaceship class to use an ArrayList to keep track of its bullets. You will need to add new functionality to the Spaceship to "fire" a bullet. You will need to update the show() method to also draw the spaceship bullets. Bullets should be fired in the same direction that the spaceship was pointing when the ship was told to fire. The speed of the bullet should be faster than the ship is currently traveling. You should add a method to SpaceShip that takes a Mover as a parameter and determines whether or not any of the bullets collides with that Mover (call the method "hasHitTarget(Mover target)"
+
+Finally, in the main program draw() method you should ask each asteroid if the spaceship has hit the asteroid. If the asteroid has hit the target then you should remove it from the array (or disable it).
+
+* First work on just getting 1 bullet to be fired from your spaceship, this can be done without an array list and using a single Bullet varialbe.
+* Next, we will work on incorporating an ArrayList into the spaceship.
+  * Modify your asteroids game to use an `ArrayList` instead of an array of asteroids. You may find the [ArrayList worksheet](https://drive.google.com/open?id=13FqmR0E-aJSS-Qwqkwd35c2kHyGbe_UU) and the [ArrayList slide presentation](https://docs.google.com/presentation/d/1H3W6iqnXTDyel_c6UKKX8A9VFRfrR-F_eTDDGp1zG9s/edit#slide=id.p126) helpful.
+* At the time of this writing, these steps were still in flight, so in a week or two we will nail down the remaining steps.
 
 *This assignment was addapted from https://github.com/APCSLowell/AsteroidsGame
