@@ -16,7 +16,7 @@ Suggested steps to complete this assignment
 * Uncomment the `extends Mover` on Line 7-ish of `Spaceship.pde`
 * The `Spaceship` class inherits from `Mover` and the only method you need to implement is `show()` and the two constructors previously defined in Mover
   * Note, an instance of Spaceship will have all the variables already specified in Mover. You do need to redefine these variables.
-* Write the `Spaceship` constructors. Make sure you initialize all 9 of the inherited `protected` member variables. You may find slides #1 - 68 on [Asteroids slideshow](https://docs.google.com/presentation/d/1-NUJtmxfJ06K_RFNjdTwKlqEEAw7JUvq_0nx43Fobu4/edit#slide=id.g45b409ab78_7_6) and the [Spaceship design worksheet](https://drive.google.com/file/d/0Bz2ZkT6qWPYTRDJvNUJRdXFjNGs/view?usp=sharing) helpful. You may also find [this sample Spaceship program](https://apcslowell.github.io/AsteroidsVariableDemoV2/) helpful in understanding how the `protected Mover` variables affect the Spaceship's movement.
+* Write the `Spaceship` constructors. Make sure you initialize all 9 of the inherited `protected` member variables. You may find slides #1 - 68 on [Asteroids slideshow](https://docs.google.com/presentation/d/1-NUJtmxfJ06K_RFNjdTwKlqEEAw7JUvq_0nx43Fobu4/edit#slide=id.g45b409ab78_7_6) and the [Spaceship design worksheet](https://docs.google.com/document/d/14BTGf9DjeZZfd5FJKUQzFo_K2eOOf1wwiqPe-EshhQM/edit?usp=sharing) helpful. You may also find [this sample Spaceship program](https://apcslowell.github.io/AsteroidsVariableDemoV2/) helpful in understanding how the `protected Mover` variables affect the Spaceship's movement.
 
 
 * At the top of `AsteroidsGame.pde`, declare a variable of type `Spaceship`
@@ -38,7 +38,7 @@ Some important things to keep in mind
 2. Abstract classes are one way that programmers can collaborate and divide up the work of a large program
 3. You're collaborating! Some of the work for the `Spaceship` class has already been done in the `Floater` class. Don't change it! Your job is to extend the `Floater` class to "build on top of it" to make a `Ship` class. 
 3. To create the `Spaceship` class you need to write a constructor and finish the "unfinished" `abstract` functions in `Floater`.
-4. When you are sketching out your ship on th [Spaceship design worksheet](https://drive.google.com/file/d/0Bz2ZkT6qWPYTRDJvNUJRdXFjNGs/view?usp=sharing) make sure the ship is centered at (0,0) and pointing to the right
+4. When you are sketching out your ship on th [Spaceship design worksheet](https://docs.google.com/document/d/14BTGf9DjeZZfd5FJKUQzFo_K2eOOf1wwiqPe-EshhQM/edit?usp=sharing) make sure the ship is centered at (0,0) and pointing to the right - this can be used for your asteroids down the road too.
 4. Don't declare any duplicate variables in your `Spaceship` class. You are inheriting all the variables you need from `Floater`
 5. Make sure your `Spaceship` constructor initializes all 9 of the `protected` variables it inherits from `Floater`
 
