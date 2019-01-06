@@ -16,13 +16,12 @@ Suggested steps to complete this assignment
 * Uncomment the `extends Mover` on Line 7-ish of `Spaceship.pde`
 * The `Spaceship` class inherits from `Mover` and the only method you need to implement is `show()` and the two constructors previously defined in Mover
   * Note, an instance of Spaceship will have all the variables already specified in Mover. You do need to redefine these variables.
-* Write the `Spaceship` constructors. Make sure you initialize all 9 of the inherited `protected` member variables. You may find slides #1 - 58 on the [Asteroids](https://docs.google.com/presentation/d/1xEIchvoA0s2BO-HB8g9wjk1jSBH8sq9Gtkij5Y7slOs/edit?usp=sharing) and the [Spaceship design worksheet](https://drive.google.com/file/d/0Bz2ZkT6qWPYTRDJvNUJRdXFjNGs/view?usp=sharing) helpful. You may also find [this sample Spaceship program](https://apcslowell.github.io/AsteroidsVariableDemoV2/) helpful in understanding how the `protected Floater` variables affect the Spaceship's movement.
-
+* Write the `Spaceship` constructors. Make sure you initialize all 9 of the inherited `protected` member variables. You may find slides #1 - 68 on [Asteroids slideshow](https://docs.google.com/presentation/d/1-NUJtmxfJ06K_RFNjdTwKlqEEAw7JUvq_0nx43Fobu4/edit#slide=id.g45b409ab78_7_6) and the [Spaceship design worksheet](https://drive.google.com/file/d/0Bz2ZkT6qWPYTRDJvNUJRdXFjNGs/view?usp=sharing) helpful. You may also find [this sample Spaceship program](https://apcslowell.github.io/AsteroidsVariableDemoV2/) helpful in understanding how the `protected Mover` variables affect the Spaceship's movement.
 
 
 * At the top of `AsteroidsGame.pde`, declare a variable of type `Spaceship`
 * Initialize the `Spaceship` as a new instance of the class
-* In `draw()` in `AsteroidsGame.pde` call the Spaceship's `show()` function
+* In `draw()` in `AsteroidsGame.pde` call the Spaceship's `show()` function.
 * When you are happy with appearance of the Spaceship, add a `public void keyPressed()` function in `AsteroidsGame.pde`
 * Write code in `keyPressed` that allows you to control the spaceship with the keyboard. You must include the ability to turn left, turn right, accelerate, and enter "hyperspace." (There is no requirement for any fancy visual effects, hyperspace just needs to stop the ship, and give it a new random position and direction.)
 * Add code to the `draw()` in `AsteroidsGame.pde` to `move()` the Spaceship
