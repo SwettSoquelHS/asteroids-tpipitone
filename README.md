@@ -125,26 +125,72 @@ Extra Reading for Collision Detection
 
 Part 4: Bullets and ArrayList
 ==============================
-In this part you will update your program to create bullets fired from the ship. To keep track of the bullets fired you will need to store them. An array probably isn't the best way to keep track of a bunch of bullets. Arrays have a fixed size. You can't easily add or remove bullets from an array. A better choice might be an `ArrayList`. The `ArrayList` class has a number of useful member methods:
-- `void add(Object element)` // add an object to the end
+In this part you will update your program to create bullets fired from the ship. To keep track of the bullets fired you will need to store them. An array probably isn't the best way to keep track of a bunch of bullets because arrays have a fixed size and with something like a bullet you are constantly creating them. You can't easily add or remove bullets from an array. A better choice might be an `ArrayList`. 
+
+The `ArrayList` class has a number of useful member methods:
+- `boolean add(Object element)` // add an object to the end
 - `void add(int index, Object element)`  // add an object at index, moves the thing that was there down by one 
 - `Object get(int index)` //get the object at index
 - `Object remove(int index)` // remove the object at index
 - `Object set(int index, Object x)` //replace the object at index with new object and return the one that was there
 - `int size()`
 
-Using an `ArrayList` allows you to not have to care (as much) about the size of the array and lets you add as many things as you want to the array. You still have to be careful not to index out of the list though.
+Using an `ArrayList` allows you to not have to care (as much) about the size of the array and lets you add as many things as you want to the array. You will still have to be careful not to index out of the list though.
 
 
 Steps to completing this part
 -----------------------------
-First you will want to make the Bullet class and have it extend Mover. Next you will want to update the Spaceship class to use an ArrayList to keep track of its bullets. You will need to add new functionality to the Spaceship to "fire" a bullet. You will need to update the show() method to also draw the spaceship bullets. Bullets should be fired in the same direction that the spaceship was pointing when the ship was told to fire. The speed of the bullet should be faster than the ship is currently traveling. You should add a method to SpaceShip that takes a Mover as a parameter and determines whether or not any of the bullets collides with that Mover (call the method "hasHitTarget(Mover target)"
+* First you will want to make the Bullet class and have it extend Mover. 
+  * You should add a private member to the Bullet class of type `int live` and instantiate it to 100 in the constructor (larger if you want it to go further).
+  * You should override Bullet update(), call super.update() first but also update the "live" to subtracted by 1 each time update is called. This has the effect of limiting the range of the bullet, so live--;
+  * Your bullet will look pretty simple, a small rectangle should do for its show() method, but anything you want will suffice (stars, hearts, happy faces). The only thing to check is wether or not the bullet is live, so `if (live > 0)` then do drawing work.
+  * You should add a method `boolean isAlive()` to Bullet. Your ship can use this to detect whether or not the bullet is still available.
+* Test to see if you can fire a bullet from the spaceship:
+  * In Spaceship class, add a new method `void fire()`. This method create a new Bullet and store that in a new member variables bullet
+  ```
+  void fire(){
+    if(myByllet != null && !myBullet.isAlive()){
+     myBullet = new Bullet(); //Make sure you have declared a Bullet myBullet for the spaceship
+    }
+   }
+  ``` 
+  * Just because Spaceship has a bullet, doesn't mean you have told the bullet to `update()` or `show()` itself. In spaceship's update() and show() methods you should update() and show() your bullet respectively.
+  * Once you have just one bullet firing, the next step would be to let the ship fire many bullets.
+  * Use an ArrayList to add bullets
+    * *Warning* You will need to manage how many bullets can be fired and when to remove bullets. Spaceship.update() is a good place to think about when to remove bullets and the Spaceship.fire() is a good place to think about limiting bullets.
 
-Finally, in the main program draw() method you should ask each asteroid if the spaceship has hit the asteroid. If the asteroid has hit the target then you should remove it from the array (or disable it).
+* Bullets should be fired in the same direction that the spaceship was pointing when the ship was told to fire. The speed of the bullet should be faster than the ship is currently traveling. 
 
-* First work on just getting 1 bullet to be fired from your spaceship, this can be done without an array list and using a single Bullet varialbe.
-* Next, we will work on incorporating an ArrayList into the spaceship.
-  * Modify your asteroids game to use an `ArrayList` instead of an array of asteroids. You may find the [ArrayList worksheet](https://drive.google.com/open?id=13FqmR0E-aJSS-Qwqkwd35c2kHyGbe_UU) and the [ArrayList slide presentation](https://docs.google.com/presentation/d/1H3W6iqnXTDyel_c6UKKX8A9VFRfrR-F_eTDDGp1zG9s/edit#slide=id.p126) helpful.
+
+* You should add a method to SpaceShip that takes a Mover as a parameter and determines whether or not any of the bullets collides with that Mover (call the method `hasHitTarget(Mover target)`. 
+
+* In the main AsteroidsGame program draw() method, you should ask each asteroid if the spaceship has hit the asteroid. If the asteroid has hit the target then you should remove it from the array (or disable it). So something like:
+```
+ for(Asteroid a: asteroids){ //Assuming asteroids is a Asteroid[]
+   if( player1.hasHitTarget(a)){
+    //mark the asteroid as hit?
+    
+    //update score?
+    
+    //think about what to do with that bullet, is it live still? 
+    //Where/how would you control that?
+   }
+ }
+ 
+ //After you know which asteroids have been hit, update your asteroids array
+```
+* For help modifying your game to use an `ArrayList` for bullets. You may find the [ArrayList worksheet](https://drive.google.com/open?id=13FqmR0E-aJSS-Qwqkwd35c2kHyGbe_UU) and the [ArrayList slide presentation](https://docs.google.com/presentation/d/1H3W6iqnXTDyel_c6UKKX8A9VFRfrR-F_eTDDGp1zG9s/edit#slide=id.p126) helpful.
+* You may optionally convert your Asteroid[] to be an ArrayList if you like.
+
 * At the time of this writing, these steps were still in flight, so in a week or two we will nail down the remaining steps.
+
+Extensions
+==========
+If you have extra time, you might add some extra features to your Asteroids game. Have fun and be creative!
+* Randomly shaped Asteroids
+* Different types of weapons besides bullets
+* Add a second ship (UFO) that appears after a while and shoots at the space ship
+* Create a pulse wave explosion that destroys everything within a certain range.
+* Keep track of the score and/or the health of the ship
 
 *This assignment was addapted from https://github.com/APCSLowell/AsteroidsGame
