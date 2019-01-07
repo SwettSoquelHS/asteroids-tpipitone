@@ -48,14 +48,14 @@ Some important things to keep in mind
 5. Make sure your `Spaceship` constructor initializes all 9 of the `protected` variables it inherits from `Mover`
 
 Samples of Student Work
------------------------
-[Timmy](https://tidang.github.io/AsteroidsGame/)   
-[David](https://daamaya.github.io/AsteroidsGame/)   
-[Erica](https://ekwkk.github.io/AsteroidsGame/)   
-[Joanna](https://j0annalu.github.io/AsteroidsGame/)   
-[Jonathan](https://jonathanchu33.github.io/AsteroidsGame/)   
-[Derek](https://keredlew.github.io/AsteroidsGame/)   
-[Mi-Kaela](https://mikamarciales.github.io/AsteroidsGame/)   
+----------------------- 
+[Excellent](https://mikamarciales.github.io/AsteroidsGame/)
+[Gravity Well](https://ansue1234.github.io/AsteroidsGame/)
+[Pretty Intense, but cool background effects](https://darya-ver.github.io/AsteroidsGame/)
+[Basic but complete](https://felixzhuk.github.io/AsteroidsGame/)
+[Star wars, nice booster](https://garvingit.github.io/AsteroidsGame/)
+[Retro](https://connac.github.io/AsteroidsGame/)
+[Toast](https://kachow4.github.io/AsteroidsGame/)
 
 
 Part 2: The Asteroid Field
