@@ -1,6 +1,8 @@
 /* * * * * * * * * * * * * * * * * * * * * * *
  Class variable declarations here
  */
+ 
+
 Spaceship player1;
 //Asteroid[] asteroids;
 //Star[] starField;
@@ -13,17 +15,22 @@ boolean ROTATE_LEFT;  //User is pressing <-
 boolean ROTATE_RIGHT; //User is pressing ->
 boolean MOVE_FORWARD; //User is pressing ^ arrow
 boolean SPACE_BAR;    //User is pressing space bar
-
+boolean thrust;
+int boost;
   
 /* * * * * * * * * * * * * * * * * * * * * * *
   Initialize all of your variables and game state here
  */
 public void setup() {
-  size(640, 400);
+  size(800, 800);
+  background(187);
   
   //initialize your asteroid array and fill it
   
+  
   //initialize ship
+  player1 = new Spaceship(width / 2, height / 2, 0,0);
+  
   
   //initialize starfield
 }
@@ -34,8 +41,10 @@ public void setup() {
  */
 public void draw() {
   //your code here
-  background(0);
+  background(187);
   
+  player1.show();
+  player1.update();
   //Draw Starfield first 
   //TODO: Part I
   
@@ -78,6 +87,7 @@ void keyPressed() {
       ROTATE_RIGHT = true;
     } else if (keyCode == UP) {
       MOVE_FORWARD = true;
+      thrust = true;
     }
   }
 
@@ -100,6 +110,8 @@ void keyReleased() {
       ROTATE_RIGHT = false;
     } else if (keyCode == UP) {
       MOVE_FORWARD = false;
+      thrust = false;
+      boost = -75;
     }
   }
   if (keyCode == 32) {
