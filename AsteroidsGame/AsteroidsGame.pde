@@ -1,11 +1,14 @@
 /* * * * * * * * * * * * * * * * * * * * * * *
  Class variable declarations here
  */
- 
 
+Star s1;
+Star[] stars = new Star[1000];
+Asteroid a1;
+Asteroid[] asteroids = new Asteroid [7];
 Spaceship player1;
 //Asteroid[] asteroids;
-//Star[] starField;
+
 
 
 /*
@@ -17,37 +20,68 @@ boolean MOVE_FORWARD; //User is pressing ^ arrow
 boolean SPACE_BAR;    //User is pressing space bar
 boolean thrust;
 int boost;
-  
+
 /* * * * * * * * * * * * * * * * * * * * * * *
-  Initialize all of your variables and game state here
- */
+ Initialize all of your variables and game state here */
 public void setup() {
   size(800, 800);
-  background(187);
-  
+  background(40);
+
   //initialize your asteroid array and fill it
-  
-  
+
+
   //initialize ship
-  player1 = new Spaceship(width / 2, height / 2, 0,0);
-  
-  
+  player1 = new Spaceship(width / 2, height / 2, 0, 0);
+
+
   //initialize starfield
+
+  for (int i = 0; i < stars.length; i++) {
+    stars[i] = new Star();
+  }
+
+  s1 = new Star();
+  
+  
+
+  for (int i = 0; i < asteroids.length; i++) {
+    asteroids[i] = new Asteroid();
+  }
+
+  a1 = new Asteroid();
 }
 
 
 /* * * * * * * * * * * * * * * * * * * * * * *
-  Drawing work here
+ Drawing work here
  */
 public void draw() {
   //your code here
-  background(187);
-  
+  background(0);
+
+
+  for (int i = 0; i < stars.length; i++) {
+    stars[i].show();
+  }
+  s1.show();
+
+
+
+  for (int i = 0; i < asteroids.length; i++) {
+    asteroids[i].show();
+  }
+  a1.show();
+
+
+
+
   player1.show();
   player1.update();
   //Draw Starfield first 
+
+
   //TODO: Part I
-  
+
   //Check bullet collisions
   //TODO: Part III or IV - for not just leave this comment
 
@@ -61,7 +95,7 @@ public void draw() {
 
   //Update spaceship
   //TODO: Part I
-  
+
   //Check for ship collision agaist asteroids
   //TODO: Part II or III
 
@@ -69,7 +103,7 @@ public void draw() {
   //TODO: Part I, for now just render ship
   //TODO: Part IV - we will use a new feature in Java called an ArrayList, 
   //so for now we'll just leave this comment and come back to it in a bit. 
-  
+
   //Update score
   //TODO: Keep track of a score and output the score at the top right
 }
@@ -77,7 +111,7 @@ public void draw() {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * *
-  Record relevent key presses for our game
+ Record relevent key presses for our game
  */
 void keyPressed() {
   if (key == CODED) {
@@ -100,7 +134,7 @@ void keyPressed() {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * *
-  Record relevant key releases for our game.
+ Record relevant key releases for our game.
  */
 void keyReleased() {  
   if (key == CODED) { 
@@ -118,3 +152,18 @@ void keyReleased() {
     SPACE_BAR = false;
   }
 }
+
+/*
+void checkOnAsteroids(){
+ for(int i = 0; asteroids.length; i++){
+ Asteroid a1 = asteroids[i];
+ for(int j = 0; j < asteroids.length; j++){
+ Asteroid a2 = asteroids[j];
+ if(a1 != a2 && a1.collidingWith(a2)){
+ //do something
+ }
+ }
+ }
+ 
+ }
+ */

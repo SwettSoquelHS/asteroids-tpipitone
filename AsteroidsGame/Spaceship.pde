@@ -12,7 +12,10 @@ class Spaceship extends Mover {
     rotate(radians(270));
     scale(0.5);
     beginShape();
-
+    
+    stroke(0);
+    strokeWeight(2);
+    fill(255);
     line(0, 0, 0, 80); //line points on top
     line(-40, 0, -40, 60);
     line(40, 0, 40, 60);
