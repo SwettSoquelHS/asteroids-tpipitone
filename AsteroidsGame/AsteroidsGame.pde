@@ -4,8 +4,9 @@
 
 Star s1;
 Star[] stars = new Star[1000];
-Asteroid a1;
+
 Asteroid[] asteroids = new Asteroid [7];
+
 Spaceship player1;
 //Asteroid[] asteroids;
 
@@ -20,6 +21,8 @@ boolean MOVE_FORWARD; //User is pressing ^ arrow
 boolean SPACE_BAR;    //User is pressing space bar
 boolean thrust;
 int boost;
+int flip = 1;
+int flip_2 = 300;
 
 /* * * * * * * * * * * * * * * * * * * * * * *
  Initialize all of your variables and game state here */
@@ -41,14 +44,13 @@ public void setup() {
   }
 
   s1 = new Star();
-  
-  
+
+
+
 
   for (int i = 0; i < asteroids.length; i++) {
-    asteroids[i] = new Asteroid();
+    asteroids[i] = new Asteroid(random(800), random(800), 1, flip * (random(360)));
   }
-
-  a1 = new Asteroid();
 }
 
 
@@ -69,13 +71,15 @@ public void draw() {
 
   for (int i = 0; i < asteroids.length; i++) {
     asteroids[i].show();
+    asteroids[i].update();
   }
-  a1.show();
+
 
 
 
 
   player1.show();
+  player1.mouseMovement();
   player1.update();
   //Draw Starfield first 
 
@@ -117,17 +121,20 @@ void keyPressed() {
   if (key == CODED) {
     if (keyCode == LEFT) {
       ROTATE_LEFT = true;
+      
     } else if ( keyCode == RIGHT ) {
       ROTATE_RIGHT = true;
     } else if (keyCode == UP) {
       MOVE_FORWARD = true;
       thrust = true;
+
     }
   }
 
   //32 is spacebar
   if (keyCode == 32) {  
     SPACE_BAR = true;
+
   }
 }
 
@@ -153,17 +160,16 @@ void keyReleased() {
   }
 }
 
-/*
-void checkOnAsteroids(){
- for(int i = 0; asteroids.length; i++){
- Asteroid a1 = asteroids[i];
- for(int j = 0; j < asteroids.length; j++){
- Asteroid a2 = asteroids[j];
- if(a1 != a2 && a1.collidingWith(a2)){
- //do something
- }
- }
- }
- 
- }
- */
+
+void checkOnAsteroids() {
+  for (int i = 0; i < asteroids.length; i++) {
+    Asteroid a1 = asteroids[i];
+    for (int j = 0; j < asteroids.length; j++) {
+      Asteroid a2 = asteroids[j];
+      if (a1 != a2 && a1.collidingWith(a2)) {
+        flip = flip * -1;
+        
+      }
+    }
+  }
+}

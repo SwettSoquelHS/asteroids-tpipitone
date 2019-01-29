@@ -60,11 +60,11 @@ interface Movable {
    be able to collide with iteself.
    */
   boolean collidingWith(Movable object);
-}
+ 
 //END OF Movable Interface
 
 
-
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  Abstract base class Mover 
@@ -91,6 +91,7 @@ abstract class Mover implements Movable {
    direction (in degrees)
    */
   Mover(float x, float y, float speed, float direction) {
+    
     this.x = x;
     this.y = y;
     this.speed = speed;
@@ -101,8 +102,12 @@ abstract class Mover implements Movable {
 
   /*
     Most of your movalbe objects should follow this pattern.
+   
    */
-  void update() {
+
+
+  void mouseMovement() {
+
     if (ROTATE_LEFT)
       direction -= 4.5;
     if (ROTATE_RIGHT)
@@ -118,21 +123,28 @@ abstract class Mover implements Movable {
       if (speed < 0)
         speed = 0;
     }
-    
-    
+  }
+
+
+
+  void update() {
+
+
+   
     x = x + speed*(float)Math.cos(radians(direction));
     y = y + speed*(float)Math.sin(radians(direction));
-    
-    if(x > 800){
-      x = 0;
-    } else if (x < 0){
-      x = 800;
+
+    if (x > 850) {
+      x = -50;
+     
+    } else if (x < -50) {
+      x = 850;
     }
-    
-    if (y > 800){
-      y = 0;
-    }else if (y < 0){
-      y = 800;
+
+    if (y > 850) {
+      y = -50;
+    } else if (y < -50) {
+      y = 850;
     }
     //todo: You need to decide what to do when X is less than 0 or greater than width
     //todo: You need to decide what to do when Y is less than 0 or greater than height
@@ -152,7 +164,7 @@ abstract class Mover implements Movable {
     TODO: Part 4: Implement collision detection
    */
   boolean collidingWith(Movable m) {
-    float distance = dist(x,y,m.getX(),m.getY());
+    float distance = dist(x, y, m.getX(), m.getY());
     boolean touching = distance < (radius +m.getRadius());
     return touching ;
   }
@@ -178,11 +190,11 @@ abstract class Mover implements Movable {
   }
 
   void setSpeed(float newSpeed) {
-    this.speed = newSpeed;
+    speed = newSpeed;
   }
 
   void setDirection(float newDirectionInDegrees) {
-    this.direction = newDirectionInDegrees;
+    direction = newDirectionInDegrees;
   }
 
   //TODO: Part I: implement the methods of Moveable interface - delete this comment
