@@ -33,6 +33,10 @@ interface Movable {
    around your object, then what would this radius be.
    */
   float getRadius();
+  
+  float getColission();
+  
+  void setColission(float newColission);
 
   /* 
    Sets the direction of the Movable
@@ -76,6 +80,7 @@ abstract class Mover implements Movable {
   protected float direction;
   protected int myColor;
   protected float radius;  
+  protected float colission;
 
   /*
     Default Mover, not actually moving and directionless
@@ -83,19 +88,21 @@ abstract class Mover implements Movable {
   Mover(float x, float y) {
     //The line below shows how we can 
     //link this constructor to the constructor below through "this"
-    this(x, y, 0, 0);
+    this(x, y, 0, 0,0,0);
   }
 
   /*
     Mover constructor specifying x, y position along with its speed and
    direction (in degrees)
    */
-  Mover(float x, float y, float speed, float direction) {
+  Mover(float x, float y, float speed, float direction, float radius, float colission) {
     
     this.x = x;
     this.y = y;
     this.speed = speed;
     this.direction = direction;
+    this.radius = radius;
+    this.colission = colission;
     myColor = 225;
     radius = 0.0;
   }
@@ -128,15 +135,12 @@ abstract class Mover implements Movable {
 
 
   void update() {
-
-
    
     x = x + speed*(float)Math.cos(radians(direction));
     y = y + speed*(float)Math.sin(radians(direction));
 
     if (x > 850) {
       x = -50;
-     
     } else if (x < -50) {
       x = 850;
     }
@@ -164,10 +168,20 @@ abstract class Mover implements Movable {
     TODO: Part 4: Implement collision detection
    */
   boolean collidingWith(Movable m) {
-    float distance = dist(x, y, m.getX(), m.getY());
-    boolean touching = distance < (radius +m.getRadius());
-    return touching ;
-  }
+    //Can't collide with yourself
+    if (this == m) {
+      return false;
+    }
+    
+    //How far away are OUR centers
+    float d = dist(x, y, m.getX(), m.getY());    
+    
+    //If both of our radi added are greater than or equal to d, then we have collided
+    if ((radius + m.getRadius()) >= d) {
+     return true;  
+    }
+    return false;
+ }
 
   float getX() {
     return x;
@@ -187,6 +201,14 @@ abstract class Mover implements Movable {
 
   float getSpeed() {
     return speed;
+  }
+  
+  float getColission(){
+    return colission;
+  }
+  
+  void setColission(float newColission){
+    colission = newColission;
   }
 
   void setSpeed(float newSpeed) {

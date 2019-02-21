@@ -7,6 +7,7 @@
 class Spaceship extends Mover {
   void show() {
     pushMatrix();
+    ellipseMode(CENTER);
     translate(x, y);
     rotate(radians(direction));
     rotate(radians(270));
@@ -53,7 +54,7 @@ class Spaceship extends Mover {
 
 
 
-Spaceship(float x, float y, float speed, float direction) {
-  super(x, y, speed, direction);
+Spaceship(float x, float y, float speed, float direction, float radius, float colission) {
+  super(x, y, speed, direction, radius, colission);
 }
 }

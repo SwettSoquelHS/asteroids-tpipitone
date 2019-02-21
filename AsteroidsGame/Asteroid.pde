@@ -15,8 +15,8 @@ class Asteroid extends Mover {
   int n = 50;
   float ran[] ={random(n),random(n),random(n),random(n),random(n)};
   
-  Asteroid(float x, float y, float speed, float direction) {
-    super(x, y, speed, direction);
+  Asteroid(float x, float y, float speed, float direction, float radius, float collision) {
+    super(x, y, speed, direction, radius, collision);
   }
   
 
@@ -27,7 +27,7 @@ class Asteroid extends Mover {
 
     pushMatrix();
     translate(x, y );
-    rotate(radians(direction));
+  //  rotate(radians(direction));
     fill(255);
 
     beginShape();
@@ -42,6 +42,10 @@ class Asteroid extends Mover {
     vertex(40, -30 + ran[3]);
     vertex(-20, -20 + ran[4]);
     vertex(0, 30 + ran[0]);
+    
+    ellipseMode(RADIUS);
+    ellipse(0,0,radius,radius);
+    
     endShape();
     popMatrix();
   }

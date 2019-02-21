@@ -15,7 +15,7 @@ class Star {
   void show() {
 
     pushMatrix();
-    translate(x+=.25, y+=.25);
+    translate(x+=random(.25), y+=.25);
     if (y > 800) {
       y = -800;
     } else if (x > 800) {
