@@ -33,9 +33,9 @@ interface Movable {
    around your object, then what would this radius be.
    */
   float getRadius();
-  
+
   float getColission();
-  
+
   void setColission(float newColission);
 
   /* 
@@ -64,10 +64,8 @@ interface Movable {
    be able to collide with iteself.
    */
   boolean collidingWith(Movable object);
- 
-//END OF Movable Interface
 
-
+  //END OF Movable Interface
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
@@ -88,7 +86,7 @@ abstract class Mover implements Movable {
   Mover(float x, float y) {
     //The line below shows how we can 
     //link this constructor to the constructor below through "this"
-    this(x, y, 0, 0,0,0);
+    this(x, y, 0, 0, 0, 0);
   }
 
   /*
@@ -96,7 +94,7 @@ abstract class Mover implements Movable {
    direction (in degrees)
    */
   Mover(float x, float y, float speed, float direction, float radius, float colission) {
-    
+
     this.x = x;
     this.y = y;
     this.speed = speed;
@@ -135,7 +133,7 @@ abstract class Mover implements Movable {
 
 
   void update() {
-   
+
     x = x + speed*(float)Math.cos(radians(direction));
     y = y + speed*(float)Math.sin(radians(direction));
 
@@ -168,20 +166,15 @@ abstract class Mover implements Movable {
     TODO: Part 4: Implement collision detection
    */
   boolean collidingWith(Movable m) {
-    //Can't collide with yourself
     if (this == m) {
       return false;
     }
-    
-    //How far away are OUR centers
     float d = dist(x, y, m.getX(), m.getY());    
-    
-    //If both of our radi added are greater than or equal to d, then we have collided
     if ((radius + m.getRadius()) >= d) {
-     return true;  
+      return true;
     }
     return false;
- }
+  }
 
   float getX() {
     return x;
@@ -202,12 +195,12 @@ abstract class Mover implements Movable {
   float getSpeed() {
     return speed;
   }
-  
-  float getColission(){
+
+  float getColission() {
     return colission;
   }
-  
-  void setColission(float newColission){
+
+  void setColission(float newColission) {
     colission = newColission;
   }
 

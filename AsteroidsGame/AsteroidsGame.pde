@@ -7,6 +7,7 @@ Star[] stars = new Star[1000];
 
 Asteroid[] asteroids = new Asteroid [10];
 
+//Bullet bullet;
 Spaceship player1;
 //Asteroid[] asteroids;
 
@@ -37,7 +38,7 @@ public void setup() {
 
   //initialize ship
   player1 = new Spaceship(width / 2, height / 2, 0, 0, 50, 0);
-
+ // bullet = new Bullet(width / 2, height / 2, 0, 0, 50 , 0);
 
   //initialize starfield
 
@@ -74,11 +75,10 @@ public void draw() {
   for (int i = 0; i < asteroids.length; i++) {
     asteroids[i].show();
     asteroids[i].update();
-    
   }
   checkOnAsteroids();
-  
-  
+
+
 
 
 
@@ -87,39 +87,9 @@ public void draw() {
   player1.show();
   player1.mouseMovement();
   player1.update();
-  
-  
-  
-  
-  //Draw Starfield first 
 
-
-  //TODO: Part I
-
-  //Check bullet collisions
-  //TODO: Part III or IV - for not just leave this comment
-
-  //TODO: Part II, Update each of the Asteroids internals
-
-  //Check for asteroid collisions against other asteroids and alter course
-  //TODO: Part III, for now keep this comment in place
-
-  //Draw asteroids
-  //TODO: Part II
-
-  //Update spaceship
-  //TODO: Part I
-
-  //Check for ship collision agaist asteroids
-  //TODO: Part II or III
-
-  //Draw spaceship & and its bullets
-  //TODO: Part I, for now just render ship
-  //TODO: Part IV - we will use a new feature in Java called an ArrayList, 
-  //so for now we'll just leave this comment and come back to it in a bit. 
-
-  //Update score
-  //TODO: Keep track of a score and output the score at the top right
+  myBullet.show();
+  myBullet.update();
 }
 
 
@@ -131,20 +101,18 @@ void keyPressed() {
   if (key == CODED) {
     if (keyCode == LEFT) {
       ROTATE_LEFT = true;
-      
     } else if ( keyCode == RIGHT ) {
       ROTATE_RIGHT = true;
     } else if (keyCode == UP) {
       MOVE_FORWARD = true;
       thrust = true;
-
     }
   }
 
   //32 is spacebar
   if (keyCode == 32) {  
     SPACE_BAR = true;
-
+    player1.fire();
   }
 }
 
@@ -174,18 +142,15 @@ void keyReleased() {
 void checkOnAsteroids() {
   for (int i = 0; i < asteroids.length; i++) {
     Asteroid a1 = asteroids[i];
-   
+
     for (int j = 0; j < asteroids.length; j++) {
       Asteroid a2 = asteroids[j];
-        
+
       if (a1 != a2 && a1.collidingWith(a2) ) {
         a1.setDirection(a1.getDirection() + 90);
-        
-        
-        a1.setSpeed((a1.getSpeed()*.99 ));
 
-        
-        
+
+        a1.setSpeed((a1.getSpeed()*.99 ));
       }
     }
   }

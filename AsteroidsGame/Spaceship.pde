@@ -4,6 +4,8 @@
  You may add additional methods to this class, for example "rotate" and "accelerate" 
  might be useful.
  */
+Bullet myBullet = new Bullet(width / 2, height / 2,  0, 0, 50, 0);
+ 
 class Spaceship extends Mover {
   void show() {
     pushMatrix();
@@ -13,7 +15,7 @@ class Spaceship extends Mover {
     rotate(radians(270));
     scale(0.5);
     beginShape();
-    
+
     stroke(0);
     strokeWeight(2);
     fill(255);
@@ -24,7 +26,7 @@ class Spaceship extends Mover {
     fill(47, 79, 79);
     triangle(-20, 0, 20, 0, 0, 75); //triangle gun
 
-   if ( thrust ) { //thruster
+    if ( thrust ) { //thruster
       fill(178, 34, 34);
       boost = boost - 1;
       if (boost < -100) {
@@ -50,11 +52,27 @@ class Spaceship extends Mover {
     ellipse(0, 5, 100, 20);
     arc(0, 0, 50, 50, radians(-185), radians(5), OPEN);
     popMatrix();
+    
+    //Bullet myBullet = new Bullet(width / 2, height / 2,  0, 0, 50, 0);
   }
 
 
 
-Spaceship(float x, float y, float speed, float direction, float radius, float colission) {
-  super(x, y, speed, direction, radius, colission);
-}
+  Spaceship(float x, float y, float speed, float direction, float radius, float colission) {
+    super(x, y, speed, direction, radius, colission);
+  }
+
+
+
+
+  void fire() {
+    if (myBullet != null && !myBullet.isAlive()) {
+      myBullet.setSpeed(2);
+      System.out.print("WORKIGN " );
+      new Bullet(x, y,5,0,0,0);
+    }
+    System.out.print("NOT WORKING " );
+    myBullet.setSpeed(2);
+  }
+  
 }
