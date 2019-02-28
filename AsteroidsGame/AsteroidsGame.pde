@@ -22,10 +22,7 @@ boolean MOVE_FORWARD; //User is pressing ^ arrow
 boolean SPACE_BAR;    //User is pressing space bar
 boolean thrust;
 int boost;
-int flip = 1;
-int flip_2 = 300;
-int second_1;
-int second_2;
+
 
 /* * * * * * * * * * * * * * * * * * * * * * *
  Initialize all of your variables and game state here */
@@ -52,7 +49,7 @@ public void setup() {
 
 
   for (int i = 0; i < asteroids.length; i++) {
-    asteroids[i] = new Asteroid(random(800), random(800), 1, flip * (random(360)), 30, 0);
+    asteroids[i] = new Asteroid(random(800), random(800), 1, (random(360)), 30, 0);
   }
 }
 
@@ -88,8 +85,8 @@ public void draw() {
   player1.mouseMovement();
   player1.update();
 
-  myBullet.show();
-  myBullet.update();
+  //myBullet.show();
+  //myBullet.update();
 }
 
 
@@ -113,6 +110,7 @@ void keyPressed() {
   if (keyCode == 32) {  
     SPACE_BAR = true;
     player1.fire();
+    //myBullet.shoot();
   }
 }
 
