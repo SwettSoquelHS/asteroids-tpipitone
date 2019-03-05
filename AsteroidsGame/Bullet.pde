@@ -1,48 +1,62 @@
-class Bullet extends Spaceship {
-  private int live = 100;
+class Bullet  extends Spaceship {
+  
+
   boolean fire = false;
-  Bullet(float x, float y, float speed, float direction, float radius, float collision) {
-    super(x, y, speed, direction, radius,  collision);
+  float maxSpeed;;
+  boolean firing;
+
+  Bullet(float x, float y, float speed, float direction, float radius, float colission) {
+   super(x, y, speed, direction, radius, colission);
+   maxSpeed = 15;
+   firing = false;
   }
-  
-  
-  /*
-  void update(){
-    x = x ++;
-    y = y ++;
-   // live--;
-  }
-  */
-  boolean isAlive(){
-    if(live > 0){
-     
-      return true;
+
+
+
+  void update() {
+    if (firing){
+      if (speed < maxSpeed) {
+        speed +=2;
+      }
       
-    } else {
-      return false;
+      
+      x = x + speed*(float)Math.cos(radians(direction));
+      y = y + speed*(float)Math.sin(radians(direction));
+  
+  
+      if (x > 850) {
+        x = -50;
+      } else if (x < -50) {
+        x = 850;
+      }
+  
+      if (y > 850) {
+        y = -50;
+      } else if (y < -50) {
+        y = 850;
+      }
+      
+      
     }
-    
-   // return false;
-  
   }
-  
-  void shoot(){
-    fire = true;
+
+  void setStart(float startX, float startY, float startDirection) {
+    //if (!firing){
+      x = startX;
+      y = startY;
+      direction = startDirection;
+      firing = true;
+  //  } 
   }
 
 
   void show() {
 
-      translate(x, y);
-    
+    translate(x, y );
+    rotate(direction);
     pushMatrix();
     fill(255);
     ellipse(0, 0, 5, 5);
-
     popMatrix();
-    
-   
   }
-
-
 }

@@ -1,15 +1,19 @@
 /* * * * * * * * * * * * * * * * * * * * * * *
  Class variable declarations here
  */
+import java.util.ArrayList;
+ArrayList <Bullet> bullets;
+
 
 Star s1;
 Star[] stars = new Star[1000];
 
 Asteroid[] asteroids = new Asteroid [10];
 
-//Bullet bullet;
+//Bullet myBullet;
+
 Spaceship player1;
-//Asteroid[] asteroids;
+
 
 
 
@@ -35,7 +39,10 @@ public void setup() {
 
   //initialize ship
   player1 = new Spaceship(width / 2, height / 2, 0, 0, 50, 0);
- // bullet = new Bullet(width / 2, height / 2, 0, 0, 50 , 0);
+  
+  
+  bullets = new ArrayList();
+ // myBullet = new Bullet(100,100,0,0,50,0);
 
   //initialize starfield
 
@@ -84,10 +91,23 @@ public void draw() {
   player1.show();
   player1.mouseMovement();
   player1.update();
+  
+  if(SPACE_BAR){
+    
+    Bullet myBullet = new Bullet(100,100,0,0,50,0);
 
-  //myBullet.show();
-  //myBullet.update();
-}
+    bullets.add(myBullet);
+    myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
+    System.out.print(bullets.size() + " " );
+   
+  }
+  for(Bullet b : bullets){
+
+    b.update();
+    b.show();
+  }
+  
+} // end draw
 
 
 
@@ -109,7 +129,7 @@ void keyPressed() {
   //32 is spacebar
   if (keyCode == 32) {  
     SPACE_BAR = true;
-    player1.fire();
+   // player1.fire();
     //myBullet.shoot();
   }
 }
@@ -133,6 +153,7 @@ void keyReleased() {
   }
   if (keyCode == 32) {
     SPACE_BAR = false;
+ //   myBullet.shoot();
   }
 }
 

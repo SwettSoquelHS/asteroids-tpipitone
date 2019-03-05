@@ -5,11 +5,11 @@
  might be useful.
  */
 
- 
+
 class Spaceship extends Mover {
-  
-  Bullet myBullet; 
-  
+
+
+
   void show() {
     pushMatrix();
     ellipseMode(CENTER);
@@ -55,11 +55,8 @@ class Spaceship extends Mover {
     ellipse(0, 5, 100, 20);
     arc(0, 0, 50, 50, radians(-185), radians(5), OPEN);
     popMatrix();
-    
-    myBullet = new Bullet(x, y,  0, 0, 50, 0);
-    myBullet.update();
-    myBullet.show();
-    
+
+
   }
 
 
@@ -69,24 +66,4 @@ class Spaceship extends Mover {
   }
 
 
-
-
-  void fire() {
-    if (myBullet != null /*&& myBullet.isAlive()*/) {
-      
-      myBullet.setSpeed(10);
-
-      
-      System.out.print(myBullet.getSpeed());
-
-      System.out.print("WORKIGN " );
-      
-      //myBullet = new Bullet(x, y,  0, 0, 50, 0);
-    
-    } else {
-      System.out.print("NOT WORKING " );
-   // myBullet.setSpeed(2);
-    }
-  }
-  
 }
