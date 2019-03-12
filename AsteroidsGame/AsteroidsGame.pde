@@ -91,24 +91,42 @@ public void draw() {
   player1.show();
   player1.mouseMovement();
   player1.update();
-  
+  /*
   if(SPACE_BAR){
     
     Bullet myBullet = new Bullet(100,100,0,0,50,0);
 
     bullets.add(myBullet);
+   
     myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
     System.out.print(bullets.size() + " " );
-   
-  }
   for(Bullet b : bullets){
 
     b.update();
     b.show();
   }
+   
+  }
+*/
+
+  for(int i = 0; i < bullets.size(); i++)
+  {
+    Bullet myBullet = bullets.get(i);
+    myBullet.update();
+    myBullet.show();
+  }
+
+
+
   
 } // end draw
 
+  void mousePressed(){
+    Bullet myBullet = new Bullet(100,100,0,0,50,0);
+    bullets.add(myBullet);
+    myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
+    System.out.print(bullets.size() + " ");
+    }
 
 
 /* * * * * * * * * * * * * * * * * * * * * * *
