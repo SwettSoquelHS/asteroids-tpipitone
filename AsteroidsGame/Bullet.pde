@@ -54,12 +54,12 @@ class Bullet  extends Spaceship {
 
 
   void show() {
-
+    pushMatrix();
     translate(x, y );
     rotate(direction);
-    pushMatrix();
+   
     fill(255);
-    ellipse(0, 0, 5, 5);
+    ellipse(0, 0, 20, 20);
     popMatrix();
   }
 }

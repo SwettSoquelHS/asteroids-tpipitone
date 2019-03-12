@@ -123,8 +123,9 @@ public void draw() {
 
   void mousePressed(){
     Bullet myBullet = new Bullet(100,100,0,0,50,0);
-    bullets.add(myBullet);
     myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
+    bullets.add(myBullet);
+ 
     System.out.print(bullets.size() + " ");
     }
 
