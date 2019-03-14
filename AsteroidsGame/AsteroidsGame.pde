@@ -4,13 +4,17 @@
 import java.util.ArrayList;
 ArrayList <Bullet> bullets;
 
+int asteroidSize = 10;
+int asteroidIndex = 0;
+boolean resetArray = true; 
+
 
 Star s1;
 Star[] stars = new Star[1000];
 
-Asteroid[] asteroids = new Asteroid [10];
+Asteroid[] asteroids = new Asteroid [asteroidSize];
 
-//Bullet myBullet;
+
 
 Spaceship player1;
 
@@ -54,10 +58,16 @@ public void setup() {
 
 
 
-
+if(resetArray){
   for (int i = 0; i < asteroids.length; i++) {
+    asteroids[asteroidIndex] = new Asteroid(0, 0, 1, (random(360)), 30, 0);
     asteroids[i] = new Asteroid(random(800), random(800), 1, (random(360)), 30, 0);
+    
   }
+  resetArray = false;
+}
+
+
 }
 
 
@@ -76,11 +86,22 @@ public void draw() {
 
 
 
-  for (int i = 0; i < asteroids.length; i++) {
-    asteroids[i].show();
-    asteroids[i].update();
-  }
+    for (int i = 0; i < asteroids.length; i++) {
+      asteroids[i].show();
+      asteroids[i].update();
+    }
+
+  
   checkOnAsteroids();
+
+
+
+  for(int i = 0; i < bullets.size(); i++)
+  {
+    Bullet myBullet = bullets.get(i);
+    myBullet.update();
+    myBullet.show();
+  }
 
 
 
@@ -91,30 +112,9 @@ public void draw() {
   player1.show();
   player1.mouseMovement();
   player1.update();
-  /*
-  if(SPACE_BAR){
-    
-    Bullet myBullet = new Bullet(100,100,0,0,50,0);
+  
 
-    bullets.add(myBullet);
-   
-    myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
-    System.out.print(bullets.size() + " " );
-  for(Bullet b : bullets){
 
-    b.update();
-    b.show();
-  }
-   
-  }
-*/
-
-  for(int i = 0; i < bullets.size(); i++)
-  {
-    Bullet myBullet = bullets.get(i);
-    myBullet.update();
-    myBullet.show();
-  }
 
 
 
@@ -129,55 +129,61 @@ public void draw() {
     System.out.print(bullets.size() + " ");
     }
 
-
-/* * * * * * * * * * * * * * * * * * * * * * *
- Record relevent key presses for our game
- */
 void keyPressed() {
-  if (key == CODED) {
-    if (keyCode == LEFT) {
+  if (keyPressed) {
+    if (key == 'a') {
       ROTATE_LEFT = true;
-    } else if ( keyCode == RIGHT ) {
+    } else if ( key == 'd') {
       ROTATE_RIGHT = true;
-    } else if (keyCode == UP) {
+    } else if (key == 'w') {
       MOVE_FORWARD = true;
       thrust = true;
     }
   }
 
-  //32 is spacebar
   if (keyCode == 32) {  
     SPACE_BAR = true;
-   // player1.fire();
-    //myBullet.shoot();
   }
 }
 
-
-
-/* * * * * * * * * * * * * * * * * * * * * * *
- Record relevant key releases for our game.
- */
 void keyReleased() {  
-  if (key == CODED) { 
-    if (keyCode == LEFT) {
+  //if (keyPressed) { 
+    if (key == 'a') {
       ROTATE_LEFT = false;
-    } else if ( keyCode == RIGHT ) {
+    } else if ( key == 'd') {
       ROTATE_RIGHT = false;
-    } else if (keyCode == UP) {
+    } else if (key == 'w') {
       MOVE_FORWARD = false;
       thrust = false;
       boost = -75;
     }
-  }
+
   if (keyCode == 32) {
     SPACE_BAR = false;
- //   myBullet.shoot();
+
   }
 }
 
 
 void checkOnAsteroids() {
+  for(int i = 0; i < asteroids.length; i++){
+    Asteroid a1 = asteroids[i];
+    
+    for(int j = 0; j < bullets.size(); j ++){
+      Bullet b1 = bullets.get(j);
+      
+      if(b1.collidingWith(a1) ){
+        System.out.print(" COLLISSION ");
+        bullets.remove(j);
+        asteroidSize += 3;
+        asteroidIndex = j;
+        resetArray = true; 
+        
+      }
+    }
+  }
+  
+  
   for (int i = 0; i < asteroids.length; i++) {
     Asteroid a1 = asteroids[i];
 

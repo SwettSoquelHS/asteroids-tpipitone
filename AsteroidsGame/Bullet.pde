@@ -1,9 +1,4 @@
-
-
-
 class Bullet  extends Spaceship {
-  
-
   boolean fire = false;
   float maxSpeed;;
   boolean firing;
@@ -14,42 +9,24 @@ class Bullet  extends Spaceship {
    firing = false;
   }
 
-
-
   void update() {
     if (firing){
       if (speed < maxSpeed) {
         speed +=2;
       }
-      
-      
+         
       x = x + speed*(float)Math.cos(radians(direction));
       y = y + speed*(float)Math.sin(radians(direction));
-  
-  
-      if (x > 850) {
-        x = -50;
-      } else if (x < -50) {
-        x = 850;
-      }
-  
-      if (y > 850) {
-        y = -50;
-      } else if (y < -50) {
-        y = 850;
-      }
-      
-      
+
     }
+    
   }
 
   void setStart(float startX, float startY, float startDirection) {
-    //if (!firing){
       x = startX;
       y = startY;
       direction = startDirection;
       firing = true;
-  //  } 
   }
 
 
@@ -57,9 +34,9 @@ class Bullet  extends Spaceship {
     pushMatrix();
     translate(x, y );
     rotate(direction);
-   
-    fill(255);
-    ellipse(0, 0, 20, 20);
+    strokeWeight(.5);
+    fill(255,0,0);
+    ellipse(0, 0, 5, 5);
     popMatrix();
   }
 }

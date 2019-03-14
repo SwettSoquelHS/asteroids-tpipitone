@@ -35,14 +35,14 @@ class Asteroid extends Mover {
     strokeWeight(4);
     stroke(58, 31, 9);
 
-    
+    /*
     vertex(0, 30 + ran[0]);
     vertex(30, 40 + ran[1]);
     vertex(60, 10 + ran[2]);
     vertex(40, -30 + ran[3]);
     vertex(-20, -20 + ran[4]);
     vertex(0, 30 + ran[0]);
-    
+    */
     ellipseMode(RADIUS);
     ellipse(0,0,radius,radius);
     
