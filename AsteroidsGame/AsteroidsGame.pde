@@ -1,29 +1,28 @@
-/* * * * * * * * * * * * * * * * * * * * * * *
- Class variable declarations here
- */
-import java.util.ArrayList;
-ArrayList <Bullet> bullets;
 
-int asteroidSize = 10;
+import java.util.ArrayList;
+
+ArrayList <Bullet> bullets;
+ArrayList<Asteroid> asteroids;
+
+
 int asteroidIndex = 0;
-boolean resetArray = true; 
+
 
 
 Star s1;
 Star[] stars = new Star[1000];
 
-Asteroid[] asteroids = new Asteroid [asteroidSize];
+
 
 
 
 Spaceship player1;
 
 
+int score = 0; 
+int health = 100;
 
 
-/*
-  Track User keyboard input
- */
 boolean ROTATE_LEFT;  //User is pressing <-
 boolean ROTATE_RIGHT; //User is pressing ->
 boolean MOVE_FORWARD; //User is pressing ^ arrow
@@ -32,23 +31,17 @@ boolean thrust;
 int boost;
 
 
-/* * * * * * * * * * * * * * * * * * * * * * *
- Initialize all of your variables and game state here */
 public void setup() {
   size(800, 800);
   background(40);
 
-  //initialize your asteroid array and fill it
+  player1 = new Spaceship(750, 750, 0, 200, 50, 0);
 
 
-  //initialize ship
-  player1 = new Spaceship(width / 2, height / 2, 0, 0, 50, 0);
-  
-  
   bullets = new ArrayList();
- // myBullet = new Bullet(100,100,0,0,50,0);
 
-  //initialize starfield
+  asteroids = new ArrayList<Asteroid>(10);
+
 
   for (int i = 0; i < stars.length; i++) {
     stars[i] = new Star();
@@ -57,77 +50,66 @@ public void setup() {
   s1 = new Star();
 
 
-
-if(resetArray){
-  for (int i = 0; i < asteroids.length; i++) {
-    asteroids[asteroidIndex] = new Asteroid(0, 0, 1, (random(360)), 30, 0);
-    asteroids[i] = new Asteroid(random(800), random(800), 1, (random(360)), 30, 0);
-    
+  for (int i = 0; i < 10; i++) {
+    Asteroid myAsteroid = new Asteroid(random(700), random(700), 1, (random(360)), 30, 0);
+    asteroids.add(myAsteroid);
   }
-  resetArray = false;
-}
-
 
 }
 
-
-/* * * * * * * * * * * * * * * * * * * * * * *
- Drawing work here
- */
 public void draw() {
-  //your code here
-  background(0);
+  if (health > 0 ) {
+
+    background(0);
+    textSize(30);
+    fill(0, 102, 153);
+    text("SCORE: " + score, 10, 60);
+
+    text("HEALTH: " + health, 10, 100);
+
+    for (int i = 0; i < stars.length; i++) {
+      stars[i].show();
+    }
+    s1.show();
 
 
-  for (int i = 0; i < stars.length; i++) {
-    stars[i].show();
-  }
-  s1.show();
 
 
-
-    for (int i = 0; i < asteroids.length; i++) {
-      asteroids[i].show();
-      asteroids[i].update();
+    for (int i = 0; i < asteroids.size(); i++) {
+      asteroids.get(i).show();
+      asteroids.get(i).update();
     }
 
-  
-  checkOnAsteroids();
+
+
+    checkOnAsteroids();
 
 
 
-  for(int i = 0; i < bullets.size(); i++)
-  {
-    Bullet myBullet = bullets.get(i);
-    myBullet.update();
-    myBullet.show();
-  }
-
-
-
-
-
-
-
-  player1.show();
-  player1.mouseMovement();
-  player1.update();
-  
-
-
-
-
-
-  
-} // end draw
-
-  void mousePressed(){
-    Bullet myBullet = new Bullet(100,100,0,0,50,0);
-    myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
-    bullets.add(myBullet);
- 
-    System.out.print(bullets.size() + " ");
+    for (int i = 0; i < bullets.size(); i++)
+    {
+      Bullet myBullet = bullets.get(i);
+      myBullet.update();
+      myBullet.show();
     }
+
+    player1.show();
+    player1.mouseMovement();
+    player1.update();
+  } else {
+    fill(255, 0, 0);
+    text("YOU DIED ", 350, width / 2);
+    text("SCORE  " + score, 350, width / 2 + 100);
+  }
+} 
+
+void mousePressed() {
+  Bullet myBullet = new Bullet(100, 100, 0, 0, 50, 0);
+  myBullet.setStart(player1.getX(), player1.getY(), player1.getDirection());
+  bullets.add(myBullet);
+
+  System.out.print(bullets.size() + " ");
+}
 
 void keyPressed() {
   if (keyPressed) {
@@ -147,55 +129,57 @@ void keyPressed() {
 }
 
 void keyReleased() {  
-  //if (keyPressed) { 
-    if (key == 'a') {
-      ROTATE_LEFT = false;
-    } else if ( key == 'd') {
-      ROTATE_RIGHT = false;
-    } else if (key == 'w') {
-      MOVE_FORWARD = false;
-      thrust = false;
-      boost = -75;
-    }
+
+  if (key == 'a') {
+    ROTATE_LEFT = false;
+  } else if ( key == 'd') {
+    ROTATE_RIGHT = false;
+  } else if (key == 'w') {
+    MOVE_FORWARD = false;
+    thrust = false;
+    boost = -75;
+  }
 
   if (keyCode == 32) {
     SPACE_BAR = false;
-
   }
 }
 
 
 void checkOnAsteroids() {
-  for(int i = 0; i < asteroids.length; i++){
-    Asteroid a1 = asteroids[i];
-    
-    for(int j = 0; j < bullets.size(); j ++){
+  for (int i = 0; i < asteroids.size(); i++) {
+    Asteroid a1 = asteroids.get(i);
+    for (int j = 0; j < bullets.size(); j ++) {
       Bullet b1 = bullets.get(j);
-      
-      if(b1.collidingWith(a1) ){
-        System.out.print(" COLLISSION ");
+      if (b1.collidingWith(a1) ) {
         bullets.remove(j);
-        asteroidSize += 3;
-        asteroidIndex = j;
-        resetArray = true; 
-        
+
+        asteroids.remove(i);
+        score++;
       }
     }
   }
-  
-  
-  for (int i = 0; i < asteroids.length; i++) {
-    Asteroid a1 = asteroids[i];
 
-    for (int j = 0; j < asteroids.length; j++) {
-      Asteroid a2 = asteroids[j];
 
+  for (int i = 0; i < asteroids.size(); i++) {
+    Asteroid a1 = asteroids.get(i);
+    for (int j = 0; j < asteroids.size(); j++) {
+      Asteroid a2 = asteroids.get(i);
       if (a1 != a2 && a1.collidingWith(a2) ) {
+        System.out.println("COLLISSION");
         a1.setDirection(a1.getDirection() + 90);
-
-
         a1.setSpeed((a1.getSpeed()*.99 ));
       }
+    }
+  }
+
+
+  for (int i = 0; i < asteroids.size(); i++) {
+    Asteroid a1 = asteroids.get(i);
+    if (player1.collidingWith(a1)) {
+      health-=10;
+      a1.setDirection(player1.getDirection());
+      a1.setSpeed((player1.getSpeed()*1.5 ));
     }
   }
 }
