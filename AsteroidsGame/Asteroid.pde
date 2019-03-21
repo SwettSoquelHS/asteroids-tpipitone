@@ -1,18 +1,6 @@
-/** 
- Asteroid class
- Should extend Mover class and implement show.
- 
- Initially, your asteroid may just be a simple circle or square
- but the final program should use "beginShap(), vertex(), and endShape()"
- to render the asteroid.
- */
-
-  
-
-  
 class Asteroid extends Mover {
 
-  int n = 50;
+  int n = 20;
   float ran[] ={random(n),random(n),random(n),random(n),random(n)};
   
   Asteroid(float x, float y, float speed, float direction, float radius, float collision) {
@@ -27,7 +15,7 @@ class Asteroid extends Mover {
 
     pushMatrix();
     translate(x, y );
-  //  rotate(radians(direction));
+    rotate(radians(direction));
     fill(255);
 
     beginShape();
@@ -36,16 +24,16 @@ class Asteroid extends Mover {
     stroke(58, 31, 9);
 
     
-    vertex(0, 30 + ran[0]);
-    vertex(30, 40 + ran[1]);
+    vertex(0, 30 + ran[0] );
+    vertex(30, 40 + ran[1] );
     vertex(60, 10 + ran[2]);
     vertex(40, -30 + ran[3]);
     vertex(-20, -20 + ran[4]);
-    vertex(0, 30 + ran[0]);
-    
+    vertex(0, 30 + ran[0] );
+    /*
     ellipseMode(RADIUS);
     ellipse(0,0,radius,radius);
-    
+    */
     endShape();
     popMatrix();
   }

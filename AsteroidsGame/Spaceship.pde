@@ -1,11 +1,3 @@
-/*
-  Spaceship class
- Should extend Mover class and implement show.
- You may add additional methods to this class, for example "rotate" and "accelerate" 
- might be useful.
- */
-
-
 class Spaceship extends Mover {
 
 
@@ -13,7 +5,13 @@ class Spaceship extends Mover {
   void show() {
     pushMatrix();
     ellipseMode(CENTER);
-    translate(x, y);
+    
+    if (SPACE_BAR) {
+      translate(random(800), random(800)); //hyperspace
+    } else { 
+      translate(x, y);
+    }
+
     rotate(radians(direction));
     rotate(radians(270));
     scale(0.5);
@@ -55,8 +53,6 @@ class Spaceship extends Mover {
     ellipse(0, 5, 100, 20);
     arc(0, 0, 50, 50, radians(-185), radians(5), OPEN);
     popMatrix();
-
-
   }
 
 
@@ -64,6 +60,4 @@ class Spaceship extends Mover {
   Spaceship(float x, float y, float speed, float direction, float radius, float colission) {
     super(x, y, speed, direction, radius, colission);
   }
-
-
 }
