@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 56ecdd78bb3f080864b83c39f642ff59f8512a69
 class Asteroid extends Mover {
 
   int n = 20;
