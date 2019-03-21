@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 ArrayList <Bullet> bullets;
@@ -18,9 +17,10 @@ Star[] stars = new Star[1000];
 
 Spaceship player1;
 
-
+int level = 1;
 int score = 0; 
 int health = 100;
+float  asteroidSpeed = 1;
 
 
 boolean ROTATE_LEFT;  //User is pressing <-
@@ -43,6 +43,7 @@ public void setup() {
   asteroids = new ArrayList<Asteroid>(10);
 
 
+
   for (int i = 0; i < stars.length; i++) {
     stars[i] = new Star();
   }
@@ -54,7 +55,6 @@ public void setup() {
     Asteroid myAsteroid = new Asteroid(random(700), random(700), 1, (random(360)), 30, 0);
     asteroids.add(myAsteroid);
   }
-
 }
 
 public void draw() {
@@ -66,12 +66,24 @@ public void draw() {
     text("SCORE: " + score, 10, 60);
 
     text("HEALTH: " + health, 10, 100);
+    text("ROUND " + level, 10, 140);
 
     for (int i = 0; i < stars.length; i++) {
       stars[i].show();
     }
     s1.show();
 
+    if (score % 10 == 0 && score != 0 ) {
+      score ++;
+  
+      for (int i = 0; i <  10; i++) {
+        Asteroid newAsteroids = new Asteroid(player1.getX() + random(700), player1.getY() + random(700), asteroidSpeed , (random(360)), 30, 0);
+        asteroids.add(newAsteroids);
+      }
+      level++;
+      health+=10;
+      asteroidSpeed = asteroidSpeed * 1.25;
+    }
 
 
 
@@ -147,23 +159,11 @@ void keyReleased() {
 
 
 void checkOnAsteroids() {
-  for (int i = 0; i < asteroids.size(); i++) {
-    Asteroid a1 = asteroids.get(i);
-    for (int j = 0; j < bullets.size(); j ++) {
-      Bullet b1 = bullets.get(j);
-      if (b1.collidingWith(a1) ) {
-        bullets.remove(j);
-
-        asteroids.remove(i);
-        score++;
-      }
-    }
-  }
-
 
   for (int i = 0; i < asteroids.size(); i++) {
     Asteroid a1 = asteroids.get(i);
-    for (int j = 0; j < asteroids.size(); j++) {
+    for (int j = i + 1; j < asteroids.size(); j++) {
+
       Asteroid a2 = asteroids.get(i);
       if (a1 != a2 && a1.collidingWith(a2) ) {
         System.out.println("COLLISSION");
@@ -173,6 +173,17 @@ void checkOnAsteroids() {
     }
   }
 
+  for (int i = 0; i < asteroids.size(); i++) {
+    Asteroid a1 = asteroids.get(i);
+    for (int j = 0; j < bullets.size(); j ++) {
+      Bullet b1 = bullets.get(j);
+      if (b1.collidingWith(a1) ) {
+        bullets.remove(j);
+        asteroids.remove(i);
+        score++;
+      }
+    }
+  }
 
   for (int i = 0; i < asteroids.size(); i++) {
     Asteroid a1 = asteroids.get(i);
